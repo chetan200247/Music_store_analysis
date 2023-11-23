@@ -83,7 +83,32 @@ Q5. What are the top 3 values of total invoice?
 - Answer- 23.759999999999998
           19.8
           19.8
-Q6. 
+  
+Q6. In which city they should throw a music festival?
+- In the city with genereates the highest revenue
+- SQL- select billing_city,sum(total) from invoice group by billing_city
+       order by sum(total) desc limit 1;
+- Answer- Prague- 273.24
+
+Q7. Who is the most revenue generating customer?
+- SQL- select c.first_name,c.last_name,sum(i.total) from customer as c
+       join invoice as i on c.customer_id=i.customer_id
+       group by c.customer_id
+       order by sum(i.total) desc;
+- Answer- R Madhav 144.54
+
+Q8. Details of customers who listen to rock music?
+- SQL- select distinct customer.first_name,customer.last_name, customer.email
+       from customer
+       join invoice on invoice.customer_id=customer.customer_id
+       join invoice_line on invoice_line.invoice_id=invoice.invoice_id
+       join track on track.track_id=invoice_line.track_id
+       join genre on genre.genre_id=track.genre_id
+       where genre.name= 'Rock'
+       order by customer.first_name;
+  
+Q9. Artist who has composed maximum number of rock music?
+
 
   
   
