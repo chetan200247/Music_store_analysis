@@ -108,7 +108,26 @@ Q8. Details of customers who listen to rock music?
        order by customer.first_name;
   
 Q9. Artist who has composed maximum number of rock music?
+ -   SQL- select artist.name,count(artist.name )
+          from track join album on track.album_id=album.album_id
+          join artist on artist.artist_id=album.artist_id
+          join genre on genre.genre_id=track.genre_id
+          where genre.name='Rock'
+          group by artist.name
+          order by count(artist.name) desc;
+- Answer- Led zeppelin
 
+Q10. Return all the track names that have a song length longer than the average song length. Return the name and milliseconds of each track. Order by descending song length?
+- SQL- select name from track where milliseconds> (select avg(milliseconds) from track)
+       order by milliseconds desc;
+  
+Q11. Details sof all rock music listeners.
+- SQL- select distinct customer.first_name,customer.last_name,customer.email
+       from customer join invoice on invoice.customer_id=customer.customer_id
+       join invoice_line on invoice_line.invoice_id=invoice.invoice_id
+       join track on invoice_line.track_id=track.track_id
+       join genre on genre.genre_id=track.genre_id
+       where genre.name='Rock';
 
   
   
