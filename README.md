@@ -129,5 +129,19 @@ Q11. Details sof all rock music listeners.
        join genre on genre.genre_id=track.genre_id
        where genre.name='Rock';
 
+Q12. Find out the most famous music genre for each country based on purchases?
+- SQL-with partition as(with country_genre as
+      (select distinct invoice.billing_country,genre.name,sum(invoice.total)
+      from invoice
+      join invoice_line on invoice_line.invoice_id=invoice.invoice_id
+      join track on track.track_id=invoice_line.track_id
+      join genre on genre.genre_id=track.genre_id
+      group by invoice.billing_country,genre.name
+      order by invoice.billing_country)
+
+      select billing_country,name,sum, rank() over(partition by billing_country order by sum )
+      from country_genre)
+      select billing_country,name,sum from partition where rank<2;
+ 
   
   
