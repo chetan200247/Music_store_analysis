@@ -1,5 +1,5 @@
 # Music_store_analysis
-This data projects aims to provide insights into the sales performance. By analyzing the various aspects of sales data, we seek to identify trends, make data-driven recommendations,
+This data project aims to provide insights into the sales performance. By analyzing the various aspects of sales data, we seek to identify trends, make data-driven recommendations,
 and gain a deeper understanding of the company's performance.
 
 ### Data Source
@@ -138,7 +138,6 @@ Q12. Find out the most famous music genre for each country based on purchases?
       join genre on genre.genre_id=track.genre_id
       group by invoice.billing_country,genre.name
       order by invoice.billing_country)
-
       select billing_country,name,sum, rank() over(partition by billing_country order by sum )
       from country_genre)
       select billing_country,name,sum from partition where rank<2;
